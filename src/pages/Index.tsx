@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
-import EnhancedIconGrid from '../components/EnhancedIconGrid';
+import RefinedIconGrid from '../components/RefinedIconGrid';
 import ProblemSection from '../components/ProblemSection';
 import SolutionSection from '../components/SolutionSection';
 import TechnicalSection from '../components/TechnicalSection';
@@ -14,7 +14,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <HeroSection />
-      <EnhancedIconGrid />
+      <RefinedIconGrid />
       
       {/* Interactive Story */}
       <div className="border-t border-border mt-16">

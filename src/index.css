@@ -97,3 +97,56 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* Production-grade animation utilities */
+@layer utilities {
+  /* Easing curves inspired by Linear, Figma, Stripe */
+  .ease-smooth-fluid {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .ease-snappy-entrance {
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .ease-bouncy-exit {
+    transition-timing-function: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  }
+  
+  .ease-mechanical {
+    transition-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+  }
+  
+  .ease-elastic-spring {
+    transition-timing-function: cubic-bezier(0.38, 0.285, 0.67, 1.02);
+  }
+
+  /* Production hover states */
+  .hover-lift {
+    @apply transition-all duration-200 ease-smooth-fluid hover:scale-105 hover:shadow-lg hover:shadow-accent/10;
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-300 ease-smooth-fluid hover:shadow-lg hover:shadow-accent/20;
+  }
+  
+  /* Click feedback */
+  .click-feedback {
+    @apply transition-transform duration-100 ease-mechanical active:scale-95;
+  }
+  
+  /* Performance-optimized animations */
+  .will-change-auto {
+    will-change: auto;
+  }
+  
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+}
