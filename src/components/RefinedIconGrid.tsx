@@ -138,9 +138,9 @@ const RefinedIconGrid = () => {
     navigator.clipboard.writeText(svgCode);
     
     toast({
-      title: "SVG animation copied!",
-      description: `${iconName} icon with ${animation} animation ready to use.`,
-      duration: 2000,
+      title: "✅ SVG animation copied!",
+      description: `${iconName} icon with ${animation} animation is ready to use in your project.`,
+      duration: 3000,
     });
   };
 
@@ -148,9 +148,9 @@ const RefinedIconGrid = () => {
     downloadSVG(iconName, animation);
     
     toast({
-      title: "Download started!",
-      description: `${iconName}-${animation}.svg file is downloading.`,
-      duration: 2000,
+      title: "📁 Download started!",
+      description: `${iconName}-${animation}.svg file is downloading to your device.`,
+      duration: 3000,
     });
   };
 
