@@ -2,75 +2,129 @@ import React, { useState } from 'react';
 import { Copy, Download, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Heart, 
-  Star, 
-  Bookmark, 
-  Bell, 
-  Check, 
-  Upload,
-  Send,
-  Settings,
-  Zap,
-  ShieldCheck,
-  Navigation,
-  Play,
-  Pause,
-  Volume2,
-  Sun,
-  Moon,
-  Lock,
-  Unlock,
-  Search,
-  RefreshCw,
-  Activity,
-  Wifi,
-  Battery,
-  Timer,
-  Plus,
-  ThumbsUp,
-  Share2,
-  Camera
+  // Morphing Animation Icons
+  Heart, Star, Bookmark, ThumbsUp, Bell, ShieldCheck, CircleCheck,
+  SquareCheck, Badge, Award, Crown, Gem, Flame, Rocket, Target, Zap,
+  Mic, MicOff, Volume1, VolumeX, Coffee, Gift, Smile, Frown,
+  
+  // Stroke Draw Animation Icons
+  Check, Plus, X, Minus, Upload, Send, Mail, MessageCircle,
+  Phone, Video, Calendar, Clock, Timer, Archive, Paperclip, FileUp,
+  Edit3, PenTool, Scissors, Highlighter, Eraser, Paintbrush,
+  
+  // Orbiting Animation Icons
+  Activity, Wifi, Signal, Radar, Compass, Globe, Orbit, Satellite,
+  Settings, Cog, RefreshCw, RotateCcw, Loader, CircleDot, Radio,
+  Bluetooth, Power, Battery, BatteryCharging, Cpu, HardDrive,
+  
+  // Sequential Animation Icons
+  Navigation, MapPin, Route, ArrowUp, ArrowDown, ArrowLeft, ArrowRight,
+  ChevronUp, ChevronDown, ChevronLeft, ChevronRight, TrendingUp, TrendingDown,
+  Move, MoveHorizontal, MoveVertical, CornerUpLeft, CornerUpRight,
+  
+  // Glow Burst Animation Icons
+  Play, Pause, Volume2, Camera, Image, Sun, Moon, Lightbulb,
+  Sparkles, Eye, Search, Telescope, Crosshair, Flashlight, Zap as Lightning,
+  Sunrise, Sunset, CloudRain, CloudSnow, Rainbow, Umbrella,
+  
+  // Multi-State Flow Animation Icons
+  Lock, Unlock, Key, Shield, User, Users, Home, Building, Store,
+  Database, Server, Cloud, Folder, File, FileText, Code, Terminal,
+  Laptop, Smartphone, Tablet, Headphones, Speaker, Printer,
+  
+  // Additional Popular Icons
+  Share2, Link, Trash, Save, Filter, Layout, Layers, Package, Box, 
+  ShoppingCart, CreditCard, DollarSign, BarChart, PieChart, LineChart,
+  Monitor, Gamepad2, Joystick, Dices, Puzzle, Briefcase
 } from 'lucide-react';
 import ProductionAnimatedIcon from './ProductionAnimatedIcon';
 import { useToast } from '@/hooks/use-toast';
 
-// Curated showcase icons with production-ready animations
+// Comprehensive showcase icons inspired by movingicons.dev collection
 const showcaseIcons = [
   // Morphing Path Examples (Toggle states)
   { name: 'Heart', Icon: Heart, animation: 'morphing', description: 'Like toggle with fill morphing' },
   { name: 'Star', Icon: Star, animation: 'morphing', description: 'Favorite with smooth state transition' },
   { name: 'Bookmark', Icon: Bookmark, animation: 'morphing', description: 'Save toggle with confirmation wiggle' },
   { name: 'ThumbsUp', Icon: ThumbsUp, animation: 'morphing', description: 'Approval with tactile feedback' },
+  { name: 'Bell', Icon: Bell, animation: 'morphing', description: 'Notification with state change' },
+  { name: 'Award', Icon: Award, animation: 'morphing', description: 'Achievement unlock animation' },
+  { name: 'Crown', Icon: Crown, animation: 'morphing', description: 'Premium status transformation' },
+  { name: 'Shield', Icon: ShieldCheck, animation: 'morphing', description: 'Security verification toggle' },
+  { name: 'CircleCheck', Icon: CircleCheck, animation: 'morphing', description: 'Completion confirmation' },
+  { name: 'Mic', Icon: Mic, animation: 'morphing', description: 'Voice recording toggle' },
+  { name: 'Volume', Icon: Volume1, animation: 'morphing', description: 'Audio level indicator' },
+  { name: 'Coffee', Icon: Coffee, animation: 'morphing', description: 'Break time toggle' },
   
   // Stroke Draw Examples (Progressive reveal)
   { name: 'Check', Icon: Check, animation: 'strokeDraw', description: 'Success confirmation with pen-like draw' },
-  { name: 'Shield', Icon: ShieldCheck, animation: 'strokeDraw', description: 'Security verification draw effect' },
-  { name: 'Zap', Icon: Zap, animation: 'strokeDraw', description: 'Power activation with energy trace' },
   { name: 'Plus', Icon: Plus, animation: 'strokeDraw', description: 'Add action with stroke completion' },
+  { name: 'X', Icon: X, animation: 'strokeDraw', description: 'Cancel action with smooth stroke' },
+  { name: 'Minus', Icon: Minus, animation: 'strokeDraw', description: 'Remove with stroke animation' },
+  { name: 'Upload', Icon: Upload, animation: 'strokeDraw', description: 'File upload progress draw' },
+  { name: 'Mail', Icon: Mail, animation: 'strokeDraw', description: 'Email compose stroke effect' },
+  { name: 'Phone', Icon: Phone, animation: 'strokeDraw', description: 'Call initiation draw' },
+  { name: 'Calendar', Icon: Calendar, animation: 'strokeDraw', description: 'Date selection stroke' },
+  { name: 'Clock', Icon: Clock, animation: 'strokeDraw', description: 'Time setting progressive draw' },
+  { name: 'Edit3', Icon: Edit3, animation: 'strokeDraw', description: 'Edit mode activation stroke' },
+  { name: 'Scissors', Icon: Scissors, animation: 'strokeDraw', description: 'Cut operation stroke reveal' },
+  { name: 'Paintbrush', Icon: Paintbrush, animation: 'strokeDraw', description: 'Creative tool activation' },
   
   // Orbiting Elements (Activity indication)
-  { name: 'Bell', Icon: Bell, animation: 'orbiting', description: 'Notification alert with pulse indicators' },
-  { name: 'Wifi', Icon: Wifi, animation: 'orbiting', description: 'Connection status with signal dots' },
   { name: 'Activity', Icon: Activity, animation: 'orbiting', description: 'Live monitoring with orbital motion' },
-  { name: 'Timer', Icon: Timer, animation: 'orbiting', description: 'Time tracking with rotating markers' },
+  { name: 'Wifi', Icon: Wifi, animation: 'orbiting', description: 'Connection status with signal dots' },
+  { name: 'Signal', Icon: Signal, animation: 'orbiting', description: 'Network strength with orbiting indicators' },
+  { name: 'Radar', Icon: Radar, animation: 'orbiting', description: 'Scanning with rotating elements' },
+  { name: 'Compass', Icon: Compass, animation: 'orbiting', description: 'Navigation with directional orbits' },
+  { name: 'Globe', Icon: Globe, animation: 'orbiting', description: 'Global connectivity indicators' },
+  { name: 'Satellite', Icon: Satellite, animation: 'orbiting', description: 'Satellite communication orbit' },
+  { name: 'Settings', Icon: Settings, animation: 'orbiting', description: 'Configuration with gear orbits' },
+  { name: 'Loader', Icon: Loader, animation: 'orbiting', description: 'Loading state with spinning elements' },
+  { name: 'Battery', Icon: Battery, animation: 'orbiting', description: 'Power status with charge indicators' },
+  { name: 'Cpu', Icon: Cpu, animation: 'orbiting', description: 'Processing activity visualization' },
+  { name: 'Radio', Icon: Radio, animation: 'orbiting', description: 'Broadcast signal orbits' },
   
-  // Sequential Bounce (Multi-part icons)
-  { name: 'Upload', Icon: Upload, animation: 'sequential', description: 'File upload with staggered elements' },
+  // Sequential Animation (Multi-part icons)
   { name: 'Send', Icon: Send, animation: 'sequential', description: 'Message send with directional bounce' },
   { name: 'Navigation', Icon: Navigation, animation: 'sequential', description: 'Location pointer with layered motion' },
-  { name: 'Share', Icon: Share2, animation: 'sequential', description: 'Share action with element cascade' },
+  { name: 'Share2', Icon: Share2, animation: 'sequential', description: 'Share action with element cascade' },
+  { name: 'ArrowUp', Icon: ArrowUp, animation: 'sequential', description: 'Upward motion with staggered elements' },
+  { name: 'ArrowDown', Icon: ArrowDown, animation: 'sequential', description: 'Downward flow animation' },
+  { name: 'ChevronRight', Icon: ChevronRight, animation: 'sequential', description: 'Forward navigation sequence' },
+  { name: 'TrendingUp', Icon: TrendingUp, animation: 'sequential', description: 'Growth visualization sequence' },
+  { name: 'Move', Icon: Move, animation: 'sequential', description: 'Drag and drop sequence' },
+  { name: 'CornerUpRight', Icon: CornerUpRight, animation: 'sequential', description: 'Direction change sequence' },
+  { name: 'Route', Icon: Route, animation: 'sequential', description: 'Path visualization with sequence' },
+  { name: 'MapPin', Icon: MapPin, animation: 'sequential', description: 'Location marking sequence' },
+  { name: 'Archive', Icon: Archive, animation: 'sequential', description: 'Storage action with layered motion' },
   
   // Glow Burst (Energy effects)
   { name: 'Play', Icon: Play, animation: 'glowBurst', description: 'Media play with energy explosion' },
   { name: 'Sun', Icon: Sun, animation: 'glowBurst', description: 'Light mode with radiant particles' },
-  { name: 'Settings', Icon: Settings, animation: 'glowBurst', description: 'Configuration with activation sparkles' },
   { name: 'Camera', Icon: Camera, animation: 'glowBurst', description: 'Capture moment with flash burst' },
+  { name: 'Lightbulb', Icon: Lightbulb, animation: 'glowBurst', description: 'Idea activation with energy burst' },
+  { name: 'Sparkles', Icon: Sparkles, animation: 'glowBurst', description: 'Magic effect with particle explosion' },
+  { name: 'Eye', Icon: Eye, animation: 'glowBurst', description: 'Vision activation with glow' },
+  { name: 'Telescope', Icon: Telescope, animation: 'glowBurst', description: 'Discovery with radiant burst' },
+  { name: 'Flashlight', Icon: Flashlight, animation: 'glowBurst', description: 'Illumination with beam burst' },
+  { name: 'Lightning', Icon: Lightning, animation: 'glowBurst', description: 'Power surge with energy explosion' },
+  { name: 'Sunrise', Icon: Sunrise, animation: 'glowBurst', description: 'Dawn breaking with light burst' },
+  { name: 'Rainbow', Icon: Rainbow, animation: 'glowBurst', description: 'Colorful burst after storm' },
+  { name: 'Rocket', Icon: Rocket, animation: 'glowBurst', description: 'Launch with propulsion burst' },
   
   // Multi-State Flow (Complex interactions)
   { name: 'Lock', Icon: Lock, animation: 'multiState', description: 'Security state with progressive feedback' },
-  { name: 'Volume', Icon: Volume2, animation: 'multiState', description: 'Audio control with live indication' },
-  { name: 'Refresh', Icon: RefreshCw, animation: 'multiState', description: 'Reload action with state progression' },
-  { name: 'Search', Icon: Search, animation: 'multiState', description: 'Search input with discovery flow' }
+  { name: 'Search', Icon: Search, animation: 'multiState', description: 'Search input with discovery flow' },
+  { name: 'RefreshCw', Icon: RefreshCw, animation: 'multiState', description: 'Reload action with state progression' },
+  { name: 'User', Icon: User, animation: 'multiState', description: 'Profile interaction with state changes' },
+  { name: 'Home', Icon: Home, animation: 'multiState', description: 'Navigation with progressive states' },
+  { name: 'Database', Icon: Database, animation: 'multiState', description: 'Data interaction with state flow' },
+  { name: 'Server', Icon: Server, animation: 'multiState', description: 'System status with state progression' },
+  { name: 'Cloud', Icon: Cloud, animation: 'multiState', description: 'Cloud sync with state visualization' },
+  { name: 'Folder', Icon: Folder, animation: 'multiState', description: 'File management with state flow' },
+  { name: 'Terminal', Icon: Terminal, animation: 'multiState', description: 'Code execution with state feedback' },
+  { name: 'Monitor', Icon: Monitor, animation: 'multiState', description: 'Device interaction with state flow' },
+  { name: 'ShoppingCart', Icon: ShoppingCart, animation: 'multiState', description: 'E-commerce with purchase flow' }
 ];
 
 const RefinedIconGrid = () => {
