@@ -124,49 +124,47 @@ const ProductionAnimatedIcon: React.FC<ProductionAnimatedIconProps> = ({
     );
   };
 
-  // Orbiting elements - stories of process and activity
-  const OrbitingDots = () => {
+  // Pulse indicator - subtle breathing effect for activity
+  const PulseIndicator = () => {
     if (animationType !== 'orbiting') return null;
     
     const isActive = iconState === 'hovered' || isToggled;
     
     return (
       <div className="absolute inset-0 pointer-events-none">
-        {/* Primary orbit ring */}
+        {/* Subtle pulse ring */}
         <motion.div
-          className="absolute inset-0 border border-accent/20 rounded-full"
+          className="absolute inset-0 border border-accent/15 rounded-full"
           animate={{
-            scale: isActive ? 1.3 : 1,
-            opacity: isActive ? 0.4 : 0
+            scale: isActive ? [1, 1.08, 1] : 1,
+            opacity: isActive ? [0.3, 0.6, 0.3] : 0
           }}
-          transition={{ duration: 0.4, ease: easingCurves.smoothFluid }}
+          transition={{
+            duration: 2,
+            ease: easingCurves.smoothFluid,
+            repeat: isActive ? Infinity : 0
+          }}
         />
         
-        {/* Orbiting particles */}
-        {[0, 1, 2].map((index) => (
+        {/* Corner indicators */}
+        {[0, 1, 2, 3].map((index) => (
           <motion.div
             key={index}
-            className="absolute w-1 h-1 bg-accent rounded-full"
+            className="absolute w-1 h-1 bg-accent/40 rounded-full"
             style={{
-              top: '50%',
-              left: '50%',
-              transformOrigin: `${size/2 + 10}px 0px`
+              top: index < 2 ? '20%' : '80%',
+              left: index % 2 === 0 ? '20%' : '80%',
+              transform: 'translate(-50%, -50%)'
             }}
             animate={{
-              rotate: isActive ? [0, 360] : 0,
-              scale: isActive ? [0.8, 1.2, 0.8] : 0
+              scale: isActive ? [0.5, 1, 0.5] : 0.5,
+              opacity: isActive ? [0.4, 0.8, 0.4] : 0
             }}
             transition={{
-              rotate: {
-                duration: 2 + index * 0.2,
-                repeat: isActive ? Infinity : 0,
-                ease: 'linear'
-              },
-              scale: {
-                duration: 1 + index * 0.2,
-                repeat: isActive ? Infinity : 0,
-                ease: easingCurves.smoothFluid
-              }
+              duration: 1.5,
+              ease: easingCurves.smoothFluid,
+              delay: index * 0.1,
+              repeat: isActive ? Infinity : 0
             }}
           />
         ))}
@@ -230,77 +228,64 @@ const ProductionAnimatedIcon: React.FC<ProductionAnimatedIconProps> = ({
     );
   };
 
-  // Glow burst - stories of energy and activation
-  const GlowBurst = () => {
+  // Accent highlight - intentional state indication
+  const AccentHighlight = () => {
     if (animationType !== 'glowBurst') return null;
     
     const isActive = iconState === 'hovered' || isToggled;
     
     return (
       <>
-        {/* Core energy glow */}
+        {/* Subtle background highlight */}
         <motion.div
-          className="absolute inset-0 rounded-full"
+          className="absolute inset-0 rounded-lg"
           style={{
-            background: 'radial-gradient(circle, hsl(var(--accent) / 0.3) 0%, transparent 70%)'
+            background: 'linear-gradient(135deg, hsl(var(--accent) / 0.05), hsl(var(--accent) / 0.1))'
           }}
           animate={{
-            scale: isActive ? [1, 1.4, 1.2] : 1,
-            opacity: isActive ? [0, 0.8, 0.4] : 0
+            opacity: isActive ? 1 : 0,
+            scale: isActive ? 1 : 0.95
           }}
           transition={{
-            duration: 0.6,
-            ease: easingCurves.smoothFluid,
-            repeat: isActive ? Infinity : 0,
-            repeatType: 'reverse'
+            duration: 0.3,
+            ease: easingCurves.smoothFluid
           }}
         />
         
-        {/* Energy rings */}
-        {[0, 1, 2].map((index) => (
+        {/* Corner accent marks */}
+        {isToggled && [0, 1].map((index) => (
           <motion.div
             key={index}
-            className="absolute inset-0 border border-accent/20 rounded-full"
+            className="absolute w-2 h-0.5 bg-accent rounded-full"
+            style={{
+              top: index === 0 ? '15%' : '85%',
+              right: '15%',
+              transformOrigin: 'center'
+            }}
+            initial={{ scaleX: 0, opacity: 0 }}
             animate={{
-              scale: isActive ? [1, 1.5 + index * 0.2] : 1,
-              opacity: isActive ? [0.6, 0] : 0
+              scaleX: [0, 1, 1, 0],
+              opacity: [0, 0.8, 0.8, 0]
             }}
             transition={{
-              duration: 1 + index * 0.2,
+              duration: 0.8,
               ease: easingCurves.smoothFluid,
-              delay: index * 0.15,
-              repeat: isActive ? Infinity : 0
+              delay: index * 0.1
             }}
           />
         ))}
         
-        {/* Activation particles */}
+        {/* Activation indicator */}
         {isToggled && (
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(12)].map((_, index) => (
-              <motion.div
-                key={index}
-                className="absolute w-0.5 h-0.5 bg-accent rounded-full"
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)'
-                }}
-                initial={{ scale: 0, opacity: 1 }}
-                animate={{
-                  scale: [0, 1.5, 0],
-                  opacity: [1, 0.6, 0],
-                  x: [0, Math.cos(index * 30 * Math.PI / 180) * (20 + Math.random() * 10)],
-                  y: [0, Math.sin(index * 30 * Math.PI / 180) * (20 + Math.random() * 10)]
-                }}
-                transition={{
-                  duration: 0.8 + Math.random() * 0.4,
-                  ease: easingCurves.bouncyExit,
-                  delay: index * 0.05
-                }}
-              />
-            ))}
-          </div>
+          <motion.div
+            className="absolute top-2 right-2 w-1.5 h-1.5 bg-accent rounded-full"
+            initial={{ scale: 0 }}
+            animate={{ scale: [0, 1.2, 1] }}
+            transition={{
+              duration: 0.4,
+              ease: easingCurves.elasticSpring
+            }}
+          />
         )}
       </>
     );
@@ -396,9 +381,9 @@ const ProductionAnimatedIcon: React.FC<ProductionAnimatedIconProps> = ({
         </motion.div>
         
         <StrokeDrawPath />
-        <OrbitingDots />
+        <PulseIndicator />
         <SequentialElements />
-        <GlowBurst />
+        <AccentHighlight />
         <MultiStateFlow />
       </motion.div>
     </div>
