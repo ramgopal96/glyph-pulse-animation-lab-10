@@ -36,81 +36,63 @@ const ProductionAnimatedIcon: React.FC<ProductionAnimatedIconProps> = ({
   const handleClick = async () => {
     setIconState('clicked');
     
-    // Quick click feedback (scale down, then up)
+    // Subtle click feedback - Carbon Design inspired
     await controls.start({
-      scale: 0.9,
+      scale: 0.96,
       transition: { duration: 0.1, ease: easingCurves.smoothFluid }
     });
     
     await controls.start({
-      scale: 1.05,
-      transition: { duration: 0.2, ease: easingCurves.snappyEntrance }
+      scale: 1,
+      transition: { duration: 0.15, ease: easingCurves.smoothFluid }
     });
 
-    // For toggle icons, trigger special effects
+    // For toggle icons, trigger minimal special effects
     if (animationType === 'morphing' || animationType === 'glowBurst') {
       setIsToggled(!isToggled);
-      
-      if (animationType === 'glowBurst') {
-        burstControls.start({
-          scale: [0, 1.5, 0],
-          opacity: [0, 0.8, 0],
-          transition: { duration: 0.6, ease: easingCurves.elasticSpring }
-        });
-      }
-      
-      if (animationType === 'morphing') {
-        // Wiggle effect for confirmation
-        await controls.start({
-          rotate: [0, -5, 5, -3, 0],
-          transition: { duration: 0.4, ease: easingCurves.bouncyExit }
-        });
-      }
     }
     
     setIconState('idle');
   };
 
-  // Get hover animation properties
+  // Get hover animation properties - Carbon Design System inspired: subtle, purposeful
   const getHoverAnimation = () => {
     switch (animationType) {
       case 'morphing':
         return {
-          scale: 1.08,
-          rotate: 1,
-          transition: { duration: 0.25, ease: easingCurves.smoothFluid }
+          scale: 1.03,
+          transition: { duration: 0.15, ease: easingCurves.smoothFluid }
         };
       case 'strokeDraw':
         return {
-          scale: 1.06,
-          transition: { duration: 0.3, ease: easingCurves.snappyEntrance }
+          scale: 1.02,
+          transition: { duration: 0.15, ease: easingCurves.smoothFluid }
         };
       case 'orbiting':
         return {
-          scale: 1.05,
-          transition: { duration: 0.25, ease: easingCurves.smoothFluid }
+          scale: 1.02,
+          transition: { duration: 0.15, ease: easingCurves.smoothFluid }
         };
       case 'sequential':
         return {
-          scale: 1.08,
-          y: -2,
-          transition: { duration: 0.3, ease: easingCurves.elasticSpring }
+          scale: 1.02,
+          y: -1,
+          transition: { duration: 0.15, ease: easingCurves.smoothFluid }
         };
       case 'glowBurst':
         return {
-          scale: 1.1,
-          transition: { duration: 0.25, ease: easingCurves.snappyEntrance }
+          scale: 1.03,
+          transition: { duration: 0.15, ease: easingCurves.smoothFluid }
         };
       case 'multiState':
         return {
-          scale: 1.06,
-          rotate: 2,
-          transition: { duration: 0.3, ease: easingCurves.smoothFluid }
+          scale: 1.02,
+          transition: { duration: 0.15, ease: easingCurves.smoothFluid }
         };
       default:
         return {
-          scale: 1.05,
-          transition: { duration: 0.25, ease: easingCurves.smoothFluid }
+          scale: 1.02,
+          transition: { duration: 0.15, ease: easingCurves.smoothFluid }
         };
     }
   };

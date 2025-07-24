@@ -268,7 +268,7 @@ const RefinedIconGrid = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ 
-                duration: 0.3,
+                duration: 0.2,
                 ease: [0.4, 0, 0.2, 1]
               }}
               className="group relative bg-card rounded-xl border border-border hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 overflow-hidden"
