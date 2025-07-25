@@ -1,0 +1,12 @@
+export { default as HeartIcon } from './HeartIcon';
+export { default as PlusIcon } from './PlusIcon';
+export { default as SearchIcon } from './SearchIcon';
+export { default as DownloadIcon } from './DownloadIcon';
+export { default as TrashIcon } from './TrashIcon';
+export { default as SettingsIcon } from './SettingsIcon';
+export { default as PlayIcon } from './PlayIcon';
+export { default as MailIcon } from './MailIcon';
+export { default as CheckIcon } from './CheckIcon';
+export { default as LoaderIcon } from './LoaderIcon';
+export { default as SunIcon } from './SunIcon';
+export { default as ArrowIcon } from './ArrowIcon';
