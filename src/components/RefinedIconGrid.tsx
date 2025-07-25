@@ -30,8 +30,8 @@ const RefinedIconGrid = () => {
   const filteredIcons = showcaseIcons;
 
   // Generate production-ready SVG code with animations
-  const generateSVGCode = (iconName: string, animation: string) => {
-    return `<!-- Production-grade ${iconName} Icon with ${animation} animation -->
+  const generateSVGCode = (iconName: string) => {
+    return `<!-- Production-grade ${iconName} Animated Icon -->
 <svg 
   class="sfcon-${iconName.toLowerCase()}" 
   viewBox="0 0 24 24" 
@@ -42,62 +42,55 @@ const RefinedIconGrid = () => {
   stroke-linejoin="round"
   style="cursor: pointer;"
 >
-  <!-- Icon paths -->
+  <!-- Icon paths will be rendered by React component -->
   <style>
     .sfcon-${iconName.toLowerCase()} {
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .sfcon-${iconName.toLowerCase()}:hover {
-      animation: sfcon-${animation} 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      transform: scale(1.08);
+      transform: scale(1.05);
     }
     
     .sfcon-${iconName.toLowerCase()}:active {
       transform: scale(0.95);
       transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
-    @keyframes sfcon-${animation} {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1.08); }
-    }
   </style>
 </svg>`;
   };
 
   // Generate downloadable SVG file
-  const downloadSVG = (iconName: string, animation: string) => {
-    const svgCode = generateSVGCode(iconName, animation);
+  const downloadSVG = (iconName: string) => {
+    const svgCode = generateSVGCode(iconName);
     const blob = new Blob([svgCode], { type: 'image/svg+xml' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `sfcon-${iconName.toLowerCase()}-${animation}.svg`;
+    link.download = `sfcon-${iconName.toLowerCase()}-animated.svg`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
 
-  const handleCopyIcon = (iconName: string, animation: string) => {
-    const svgCode = generateSVGCode(iconName, animation);
+  const handleCopyIcon = (iconName: string) => {
+    const svgCode = generateSVGCode(iconName);
     navigator.clipboard.writeText(svgCode);
     
     toast({
       title: "✅ SVG animation copied!",
-      description: `${iconName} icon with ${animation} animation is ready to use in your project.`,
+      description: `${iconName} animated icon is ready to use in your project.`,
       duration: 3000,
     });
   };
 
-  const handleDownloadIcon = (iconName: string, animation: string) => {
-    downloadSVG(iconName, animation);
+  const handleDownloadIcon = (iconName: string) => {
+    downloadSVG(iconName);
     
     toast({
       title: "📁 Download started!",
-      description: `${iconName}-${animation}.svg file is downloading to your device.`,
+      description: `${iconName}-animated.svg file is downloading to your device.`,
       duration: 3000,
     });
   };
@@ -107,45 +100,15 @@ const RefinedIconGrid = () => {
     window.open(url, '_blank');
   };
 
-  // Animation type descriptions for the filter
-  const animationTypes = {
-    morphing: "Morphing Paths",
-    strokeDraw: "Stroke Draw",
-    orbiting: "Orbiting Elements", 
-    sequential: "Sequential Bounce",
-    glowBurst: "Glow Burst",
-    multiState: "Multi-State Flow"
-  };
+  // Since we now have individual animated components, we can remove the filter system
+  // or keep it simple without categories
 
   return (
     <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
-      {/* Refined Filter System */}
-      <div className="mb-12">
-        <div className="flex flex-wrap gap-2 justify-center">
-          <button
-            onClick={() => setSelectedType(null)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-              !selectedType 
-                ? 'bg-accent text-accent-foreground shadow-sm' 
-                : 'bg-card text-muted-foreground hover:bg-accent/10 hover:text-foreground border border-border'
-            }`}
-          >
-            All Animations
-          </button>
-          {Object.entries(animationTypes).map(([type, title]) => (
-            <button
-              key={type}
-              onClick={() => setSelectedType(type)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                selectedType === type 
-                  ? 'bg-accent text-accent-foreground shadow-sm' 
-                  : 'bg-card text-muted-foreground hover:bg-accent/10 hover:text-foreground border border-border'
-              }`}
-            >
-              {title}
-            </button>
-          ))}
-        </div>
+      {/* Header */}
+      <div className="mb-12 text-center">
+        <h2 className="text-2xl font-bold text-foreground mb-4">Animated Icon Collection</h2>
+        <p className="text-muted-foreground">Beautiful, interactive icons with smooth animations inspired by modern design systems</p>
       </div>
 
       {/* Production-Grade Icon Grid */}
@@ -186,7 +149,7 @@ const RefinedIconGrid = () => {
               {/* Enhanced action buttons with better spacing */}
               <div className="border-t border-border bg-muted/20 px-4 py-3 flex justify-center gap-3">
                 <motion.button
-                  onClick={() => handleCopyIcon(iconData.name, iconData.animation)}
+                  onClick={() => handleCopyIcon(iconData.name)}
                   className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-accent/10 transition-colors duration-200 text-muted-foreground hover:text-foreground group"
                   title="Copy SVG Code"
                   whileHover={{ scale: 1.05 }}
@@ -197,7 +160,7 @@ const RefinedIconGrid = () => {
                 </motion.button>
                 
                 <motion.button
-                  onClick={() => handleDownloadIcon(iconData.name, iconData.animation)}
+                  onClick={() => handleDownloadIcon(iconData.name)}
                   className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-accent/10 transition-colors duration-200 text-muted-foreground hover:text-foreground"
                   title="Download SVG"
                   whileHover={{ scale: 1.05 }}
